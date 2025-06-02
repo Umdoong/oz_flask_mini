@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, flash
 from sqlalchemy.exc import IntegrityError
+from werkzeug.exceptions import BadRequest
 
 from app.models import User
 from config import db
@@ -18,7 +19,8 @@ def create_user():
         db.session.commit()
 
     except IntegrityError:
-        return jsonify({"message": "이미 존재하는 이메일입니다."}), 400
+        raise BadRequest("User already exists")
+
     return user
 
 
@@ -32,6 +34,7 @@ def signup_page():
     if request.method == "POST":
         try:
             user = create_user()
+
             return (
                 jsonify(
                     {
