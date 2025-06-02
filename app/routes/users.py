@@ -35,5 +35,8 @@ def signup_page():
                 201,
             )
 
-        except ValueError or IntegrityError:
+        except ValueError:
             return jsonify({"message": "이미 존재하는 계정 입니다."}), 400
+
+        except IntegrityError:
+            return jsonify({"message": "이미 존재하는 이메일 입니다."}), 400
