@@ -7,18 +7,14 @@ from config import db
 user_blp = Blueprint("users", __name__)
 
 def create_user():
-    try:
-        data = request.get_json()
+    data = request.get_json()
 
-        user = User(
-            name=data["name"], age=data["age"], gender=data["gender"], email=data["email"]
-        )
+    user = User(
+        name=data["name"], age=data["age"], gender=data["gender"], email=data["email"]
+    )
 
-        db.session.add(user)
-        db.session.commit()
-    except IntegrityError as e:
-        return jsonify({"error": str(e)}), 400
-
+    db.session.add(user)
+    db.session.commit()
     return user
 
 
@@ -42,5 +38,5 @@ def signup_page():
                 201,
             )
 
-        except ValueError:
+        except ValueError or IntegrityError:
             return jsonify({"message": "이미 존재하는 계정 입니다."}), 400
