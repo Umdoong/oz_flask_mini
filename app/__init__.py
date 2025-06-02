@@ -2,7 +2,12 @@ from flask import Flask, jsonify
 from flask_migrate import Migrate
 
 import app.models
-from app.routes import routes
+from app.routes.stats_routes import stats_routes_blp
+from app.routes.users import user_blp
+from app.routes.questions import questions_blp
+from app.routes.images import images_blp
+from app.routes.choices import choices_blp
+from app.routes.answers import answers_blp
 from config import db
 
 migrate = Migrate()
@@ -26,7 +31,12 @@ def create_app():
 		return response
 
 	# 블루프린트 등록
-	application.register_blueprint(routes)
+	application.register_blueprint(user_blp)
+	application.register_blueprint(questions_blp)
+	application.register_blueprint(images_blp)
+	application.register_blueprint(choices_blp)
+	application.register_blueprint(answers_blp)
+	application.register_blueprint(stats_routes_blp)
 
 
 	return application

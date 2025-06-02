@@ -47,8 +47,6 @@ class User(CommonModel):
         return {
             "id": self.id,
             "name": self.name,
-            # db.Enum같은 경우 Enum 객체로 들어와서 value로 받아야함
-            # Enum으로 해놨는데 값이 들어오는 이유는 SQLAlchemy의 특징, 검증이 아니라 단순히 .value로 저장해주는 역할임
             "age": self.age.value if hasattr(self.age, "value") else self.age,
             "gender": (
                 self.gender.value if hasattr(self.gender, "value") else self.gender
@@ -61,7 +59,7 @@ class User(CommonModel):
 
 class Image(CommonModel):
     __tablename__ = "images"
-    url = db.Column(db.TEXT, nullable=False)
+    url = db.Column(db.String(255), nullable=False)
     type = db.Column(db.Enum(ImageStatus), nullable=False)
 
     questions = db.relationship("Question", back_populates="image")
@@ -100,7 +98,7 @@ class Question(CommonModel):
 
 class Choices(CommonModel):
     __tablename__ = "choices"
-    content = db.Column(db.Text, nullable=False)
+    content = db.Column(db.String(255), nullable=False)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     sqe = db.Column(db.Integer, nullable=False)
 
