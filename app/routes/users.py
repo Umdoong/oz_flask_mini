@@ -19,7 +19,8 @@ def create_user():
         db.session.commit()
 
     except IntegrityError:
-        raise BadRequest("User already exists")
+        flash("이미 존재하는 이메일입니다.", "user")
+        raise BadRequest("이미 존재하는 이메일입니다.")
 
     return user
 
