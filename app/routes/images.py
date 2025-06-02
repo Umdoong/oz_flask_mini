@@ -25,7 +25,7 @@ def get_main_image():
     return image
 
 @images_blp.route("/image", methods=["POST"])
-def create_image():
+def create_image_route():
     if request.method == "POST":
         try:
             image = create_image()
