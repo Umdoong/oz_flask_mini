@@ -1,6 +1,6 @@
 from flask import request, Blueprint, jsonify
 
-from app.models import Question, Choices
+from app.models import Question, Choices, Image
 from app.routes.choices import get_choices_by_question_id
 from config import db
 
@@ -23,23 +23,30 @@ def create_questions():
     if request.method == "POST":
         try:
             data = request.get_json()
+
+            image = Image.query.get(data["image_id"])
+
+            # 이미지가 없으면 404 error
+            if not image:
+                return jsonify({"message": "Image not found"}), 404
+
+            # 이미지 타입이 sub가 아니면 400 error
+            if image.type != "sub":
+                return jsonify({"message": "Image type must be 'sub'"}), 400
+
             question = Question(
                 title=data["title"],
                 sqe=data["sqe"],
                 image_id=data["image_id"],
+                is_active=data.get("is_active", True),
             )
             db.session.add(question)
             db.session.commit()
 
-            return (
-                jsonify(
-                    {"message": f"Title: {question.title} question Success Create"}
-                ),
-                201,
-            )
+            return jsonify({"message": f"Title: {question.title} question Success Create"}), 201
 
-        except ValueError:
-            return jsonify({"message": "error"}), 400
+        except KeyError as e:
+            return jsonify({"message": f"Missing required field: {str(e)}"}), 400
 
 @questions_blp.route("/questions/<int:question_id>", methods=["GET"])
 def get_question(question_id):

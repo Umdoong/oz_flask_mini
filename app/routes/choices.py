@@ -37,5 +37,5 @@ def create_choice():
                 201,
             )
 
-        except ValueError:
-            return jsonify({"message": "error"}), 400
+        except KeyError as e:
+            return jsonify({"message": f"Missing required field: {str(e)}"}), 400

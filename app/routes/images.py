@@ -18,8 +18,8 @@ def create_image():
             db.session.commit()
             return jsonify({"message": f"ID: {image.id} Image Success Create"}), 201
 
-        except ValueError:
-            return jsonify({"message": "error"}), 400
+        except KeyError as e:
+            return jsonify({"message": f"Missing required field: {str(e)}"}), 400
 
 @images_blp.route("/image/main", methods=["GET"])
 def get_main_image_route():

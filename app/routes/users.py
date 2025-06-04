@@ -35,6 +35,9 @@ def signup_page():
                 201,
             )
 
+        except KeyError as e:
+            return jsonify({"message": f"Missing required field: {str(e)}"}), 400
+
         except ValueError:
             return jsonify({"message": "이미 존재하는 계정 입니다."}), 400
 
