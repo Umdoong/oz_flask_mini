@@ -84,17 +84,6 @@ class Question(CommonModel):
 
     image = db.relationship("Image", back_populates="questions")
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "is_active": self.is_active,
-            "sqe": self.sqe,
-            "image": self.image.to_dict() if self.image else None,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
-        }
-
 
 class Choices(CommonModel):
     __tablename__ = "choices"
