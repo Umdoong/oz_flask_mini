@@ -31,7 +31,7 @@ def create_questions():
                 return jsonify({"message": "Image not found"}), 404
 
             # 이미지 타입이 sub가 아니면 400 error
-            if image.type != "sub":
+            if image.type.value != "sub":
                 return jsonify({"message": "Image type must be 'sub'"}), 400
 
             question = Question(
