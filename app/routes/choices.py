@@ -24,7 +24,7 @@ def create_choice():
             choice = Choices(
                 content=data["content"],
                 sqe=data["sqe"],
-                is_active=data["is_active"],
+                is_active=data.get("is_active", True),
                 question_id=data["question_id"],
             )
             db.session.add(choice)
