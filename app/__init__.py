@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_migrate import Migrate
 
 import app.models
-from routes import register_routes
+from app.routes import register_routes
 from config import db
 
 migrate = Migrate()
