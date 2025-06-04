@@ -6,19 +6,6 @@ from config import db
 
 questions_blp = Blueprint("questions", __name__)
 
-def create_question():
-    data = request.get_json()
-    question = Question(
-        title=data["title"],
-        sqe=data["sqe"],
-        image_id=data["image_id"],
-    )
-    db.session.add(question)
-    db.session.commit()
-
-    return question
-
-
 def get_question_by_id(question_id):
     question = Question.query.filter_by(id=question_id, is_active=True).first()
     return question
@@ -35,7 +22,15 @@ def create_questions():
     """
     if request.method == "POST":
         try:
-            question = create_question()
+            data = request.get_json()
+            question = Question(
+                title=data["title"],
+                sqe=data["sqe"],
+                image_id=data["image_id"],
+            )
+            db.session.add(question)
+            db.session.commit()
+
             return (
                 jsonify(
                     {"message": f"Title: {question.title} question Success Create"}
