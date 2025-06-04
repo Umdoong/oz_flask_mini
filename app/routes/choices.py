@@ -5,9 +5,9 @@ from config import db
 
 choices_blp = Blueprint("choices", __name__)
 
-def get_choices_by_question_id(question_id):
+def get_choices_by_question_sqe(question_sqe):
     choices = (
-        Choices.query.filter_by(question_id=question_id, is_active=True).order_by(Choices.sqe).all()
+        Choices.query.filter_by(question_id=question_sqe, is_active=True).order_by(Choices.sqe).all()
     )
     return choices
 
