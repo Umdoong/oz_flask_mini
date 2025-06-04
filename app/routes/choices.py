@@ -11,12 +11,7 @@ def get_choices_by_question_id(question_id):
     )
     return choices
 
-@choices_blp.route("/choice/<int:question_id>", methods=["GET", "POST"])
-def get_choice_list(question_id):
-    choice_list = get_choices_by_question_id(question_id)
-    return jsonify({"choices": [choice.to_dict() for choice in choice_list]})
-
-@choices_blp.route("/choice", methods=["GET", "POST"])
+@choices_blp.route("/choice", methods=["POST"])
 def create_choice():
     if request.method == "POST":
         try:
