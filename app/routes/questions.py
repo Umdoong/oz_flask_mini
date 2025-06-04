@@ -6,8 +6,11 @@ from config import db
 
 questions_blp = Blueprint("questions", __name__)
 
-def get_question_by_id(question_id):
-    question = Question.query.filter_by(id=question_id, is_active=True).first()
+def get_question_by_sqe(question_id):
+    # FE에서 question_id로 요청을 보내기 때문에 이름은 question_id지만 sqe(순서)에 맞춰서 가져오는 게 맞음
+    question = Question.query.filter_by(sqe=question_id, is_active=True).first()
+    if not question:
+        return jsonify({"error": "존재하지 않는 질문입니다."}), 404
     return question
 
 def get_question_count():
@@ -53,9 +56,14 @@ def get_question(question_id):
     """
     특정 질문 ID에 대한 질문과 선택지를 반환하는 API
     """
-    question = get_question_by_id(question_id)
+    question = get_question_by_sqe(question_id)
+    image = Image.query.get(question.image_id)
     choice_list = get_choices_by_question_id(question_id)
-    return jsonify({"question": question.to_dict(), "choices": [choice.to_dict() for choice in choice_list]})
+    return jsonify({
+        "title": question.title,
+        "image": image.url if image else None,
+        "choices": [choice.to_dict() for choice in choice_list]
+    })
 
 @questions_blp.route("/questions/count", methods=["GET"])
 def count_question():
