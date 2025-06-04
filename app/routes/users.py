@@ -1,6 +1,5 @@
-from flask import Blueprint, jsonify, request, flash
+from flask import Blueprint, jsonify, request
 from sqlalchemy.exc import IntegrityError
-from werkzeug.exceptions import BadRequest
 
 from app.models import User
 from config import db

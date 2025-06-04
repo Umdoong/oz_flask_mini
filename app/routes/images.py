@@ -1,5 +1,4 @@
 from flask import jsonify, request, Blueprint
-
 from app.models import Image
 from config import db
 

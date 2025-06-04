@@ -1,6 +1,6 @@
 from flask import request, Blueprint, jsonify
 
-from app.models import Question, Choices, Image
+from app.models import Question, Image
 from app.routes.choices import get_choices_by_question_id
 from config import db
 
