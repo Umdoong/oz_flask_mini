@@ -5,11 +5,6 @@ from config import db
 
 choices_blp = Blueprint("choices", __name__)
 
-def get_choices_by_question_sqe(question_sqe):
-    choices = (
-        Choices.query.filter_by(question_id=question_sqe, is_active=True).order_by(Choices.sqe).all()
-    )
-    return choices
 
 @choices_blp.route("/choice", methods=["POST"])
 def create_choice():

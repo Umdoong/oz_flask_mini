@@ -5,6 +5,7 @@ from .stats_routes import stats_routes_blp
 from .users import user_blp
 from .images import images_blp
 
+
 def register_routes(application):
     application.register_blueprint(user_blp)
     application.register_blueprint(questions_blp)

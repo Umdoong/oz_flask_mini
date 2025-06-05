@@ -4,6 +4,7 @@ from config import db
 
 images_blp = Blueprint("images", __name__)
 
+
 @images_blp.route("/image", methods=["POST"])
 def create_image():
     if request.method == "POST":
@@ -19,6 +20,7 @@ def create_image():
 
         except KeyError as e:
             return jsonify({"message": f"Missing required field: {str(e)}"}), 400
+
 
 @images_blp.route("/image/main", methods=["GET"])
 def get_main_image_route():

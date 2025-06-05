@@ -6,10 +6,12 @@ from config import db
 
 user_blp = Blueprint("users", __name__)
 
+
 @user_blp.route("/", methods=["GET"])
 def connect():
     if request.method == "GET":
         return jsonify({"message": "Success Connect"})
+
 
 @user_blp.route("/signup", methods=["POST"])
 def signup_page():
@@ -18,7 +20,10 @@ def signup_page():
             data = request.get_json()
 
             user = User(
-                name=data["name"], age=data["age"], gender=data["gender"], email=data["email"]
+                name=data["name"],
+                age=data["age"],
+                gender=data["gender"],
+                email=data["email"],
             )
 
             db.session.add(user)
