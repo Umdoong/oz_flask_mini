@@ -12,12 +12,12 @@ def submit_answer():
         try:
             for data in request.get_json():
                 answer = Answer(
-                    user_id=int(data["user_id"]),
+                    user_id=data["user_id"],
                     choice_id=data["choice_id"],
                 )
                 db.session.add(answer)
             db.session.commit()
-            user_id = int(request.get_json()[0]["user_id"])
+            user_id = request.get_json()[0]["user_id"]
             return jsonify(
                 {"message": f"User: {user_id}'s answers Success Create"}
             ), 201
