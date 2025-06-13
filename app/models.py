@@ -55,8 +55,6 @@ class User(CommonModel):
                 self.gender.value if hasattr(self.gender, "value") else self.gender
             ),
             "email": self.email,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
         }
 
 
@@ -72,8 +70,6 @@ class Image(CommonModel):
             "id": self.id,
             "url": self.url,
             "type": self.type.value if hasattr(self.type, "value") else self.type,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
         }
 
 
@@ -103,8 +99,6 @@ class Choices(CommonModel):
             "is_active": self.is_active,
             "sqe": self.sqe,
             "question_id": self.question_id,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
         }
 
 
@@ -118,6 +112,4 @@ class Answer(CommonModel):
             "id": self.id,
             "user_id": self.user_id,
             "choice_id": self.choice_id,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
         }

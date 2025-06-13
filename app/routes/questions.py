@@ -55,7 +55,7 @@ def get_question(question_sqe):
     image = Image.query.get(question.image_id)
 
     choice_list = (
-        Choices.query.filter_by(question_id=question_sqe, is_active=True)
+        Choices.query.filter_by(question_id=question.id, is_active=True)
         .order_by(Choices.sqe)
         .all()
     )
