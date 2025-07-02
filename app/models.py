@@ -50,6 +50,7 @@ class User(CommonModel):
         return {
             "id": self.id,
             "name": self.name,
+            # AttributeError 방지
             "age": self.age.value if hasattr(self.age, "value") else self.age,
             "gender": (
                 self.gender.value if hasattr(self.gender, "value") else self.gender
